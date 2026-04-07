@@ -5,62 +5,49 @@
 
 struct Kalkulator {
     char op;
-    int riwayat[5];
-    int jumlahInput;
-    int hasilAwal;
+    int total;
 };
 
 int main() {
-  
     struct Kalkulator kal;
-    kal.jumlahInput = 0;
+    int input;
 
     
     if (scanf(" %c", &kal.op) != 1) return 0;
 
-   
+    
     if (kal.op == '*') {
-        kal.hasilAwal = 1;
+        kal.total = 1;
     } else {
-        kal.hasilAwal = 0;
+        kal.total = 0;
     }
 
- 
+    
     for (int i = 0; i < 4; i++) {
-        int inputSekarang;
-        if (scanf("%d", &inputSekarang) != 1) break;
+        if (scanf("%d", &input) != 1) break;
 
         
-        if (inputSekarang == -1) {
-            printf("%c\n", kal.op);
-            int tempTotal = kal.hasilAwal;
-            for (int j = 0; j < kal.jumlahInput; j++) {
-                printf("%d\n", kal.riwayat[j]);
-                if (kal.op == '+') tempTotal += kal.riwayat[j];
-                else if (kal.op == '-') tempTotal -= kal.riwayat[j];
-                else if (kal.op == '*') tempTotal *= kal.riwayat[j];
-                printf("%d\n", tempTotal);
-            }
-            printf("-1\n0\n");
+        if (input == -1) {
+            printf("0\n");
             return 0;
         }
 
         
-        kal.riwayat[kal.jumlahInput] = inputSekarang;
-        kal.jumlahInput++;
-
-       
-        printf("%c\n", kal.op);
-        int runningTotal = kal.hasilAwal;
-        for (int j = 0; j < kal.jumlahInput; j++) {
-            printf("%d\n", kal.riwayat[j]);
+        if (kal.op == '+') {
+            kal.total += input;
+        } else if (kal.op == '-') {
             
-            if (kal.op == '+') runningTotal += kal.riwayat[j];
-            else if (kal.op == '-') runningTotal -= kal.riwayat[j];
-            else if (kal.op == '*') runningTotal *= kal.riwayat[j];
-            
-            printf("%d\n", runningTotal);
+            if (i == 0 && kal.total == 0) {
+                kal.total = input;
+            } else {
+                kal.total -= input;
+            }
+        } else if (kal.op == '*') {
+            kal.total *= input;
         }
+
+        
+        printf("%d\n", kal.total);
     }
 
     return 0;
